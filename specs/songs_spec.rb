@@ -3,11 +3,11 @@ require('minitest/autorun')
 require('minitest/rg')
 require_relative('../songs.rb')
 
-class TestCustomer < MiniTest::Test
+class TestSongs < MiniTest::Test
   def setup
-    @song_1 = Song.new("Don't Stop Believin'", "Journey", 4.18)
-    @song_2 = Song.new("Bohemian Rhapsody", "Queen", 5.92)
-    @song_3 = Song.new("Bat Out of Hell", "MeatLoaf", 9.85)
+    @song_1 = Song.new("Don't Stop Believin'", "Journey", 4.18, "Pop")
+    @song_2 = Song.new("Bohemian Rhapsody", "Queen", 5.92, "Rock")
+    @song_3 = Song.new("Bat Out of Hell", "MeatLoaf", 9.85, "Rock")
 
     @songs = [@song_1, @song_2, @song_3]
   end
