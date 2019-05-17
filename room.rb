@@ -21,6 +21,36 @@ class Room
     @guests.count < @max_size && @status == "open"
   end
 
+  def add_song_to_room(song)
+    @songs << song
+  end
+
+  def find_songs_artist(artist)
+    all_artist = []
+    for song in @songs
+      if song.artist == artist
+        all_artist << song
+      end
+    end
+    return all_artist
+  end
+
+  def find_songs_genre(genre)
+    all_genre = []
+    for song in @songs
+      if song.genre == genre
+        all_genre << song
+      end
+    end
+    return all_genre
+  end
+
+  def random_song(songs)
+    return songs.shuffle.first()
+  end
+
+
+
   ##
 end
 ##

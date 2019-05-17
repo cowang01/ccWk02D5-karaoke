@@ -30,6 +30,11 @@ class TestRoom < MiniTest::Test
     assert_equal(8.0, @room_2.price)
   end
 
+  def test_guests_enter
+    @room_1.add_guest(@guest_2)
+    assert_equal("Ben", @room_1.guests[0].name)
+  end
+
   def test_room_is_available__yes
     @room_1.status = "open"
     check = @room_1.available()
@@ -46,7 +51,21 @@ class TestRoom < MiniTest::Test
     assert_equal(false, check)
   end
 
-  def test_
+  def test_add_song_to_room
+    song_4 = Song.new("Test1", "Test2", 1, "Test3")
+    @room_1.add_song_to_room(song_4)
+    assert_equal(4, @room_1.songs.count)
+  end
+
+  def test_find_songs_by_artist
+    artist = @room_1.find_songs_artist("Queen")
+    assert_equal(1, artist.count)
+  end
+
+  def test_find_songs_by_genre
+    genre = @room_1.find_songs_genre("Rock")
+    assert_equal(2, genre.count)
+  end
 
 
   ##
