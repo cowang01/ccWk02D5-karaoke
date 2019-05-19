@@ -67,6 +67,10 @@ class TestRoom < MiniTest::Test
     assert_equal(2, genre.count)
   end
 
+  def test_add_song_to_queue
+
+  end
+
 
   ##
 end

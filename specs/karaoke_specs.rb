@@ -47,14 +47,21 @@ class TestCustomer < MiniTest::Test
   # end
 
 
-def test_add_song_to_room
+# def test_add_song_to_room
+#   user_choice = @karaoke.interface_menu()
+#   user_room = @karaoke.choose_room()
+#   song_add = @karaoke.interface_lvl2(user_choice, user_room)
+#   assert_equal(4, @room_1.songs.count)
+# end
+
+def test_add_customer_to_room
   user_choice = @karaoke.interface_menu()
   user_room = @karaoke.choose_room()
   song_add = @karaoke.interface_lvl2(user_choice, user_room)
-  assert_equal(4, @room_1.songs.count)
-
-
+  assert_equal(1, @room_1.guests.count)
+  assert_equal(1010.0, @room_1.till)
 end
+
 
   ##
 end

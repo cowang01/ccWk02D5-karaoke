@@ -1,14 +1,14 @@
 
 class Karaoke
-  attr_accessor :krooms, :till, :guests
+  attr_accessor :krooms, :till, :guests, :play_time, :stage, :assistance
 
   def initialize(krooms, till)
     @krooms = krooms
     @till = till
     @guests = []
     @play_time = nil
-    @stage_time = nil
-    @play_queue = []
+    @stage = nil
+    @assistance = false
   end
 
 
@@ -20,6 +20,7 @@ class Karaoke
       p "1 - admin"
       p "2 - guest"
       p "3 - exit"
+      p ""
       interface = gets.chomp.to_i
     end
     p ""
@@ -58,7 +59,7 @@ class Karaoke
     user_nav = 0
     while user_nav != 6
       p ""
-      p "Please type numeric menu option: "
+      p "Please type your menu option: "
       p "1 -  Add Song to Library"
       p "2 -  Log in Customer"
       p "3 -  Log Out Customer"
@@ -96,7 +97,7 @@ class Karaoke
         p ""
         p "The current till ballance is £#{@till}"
         @krooms.each do |room|
-          p "The #{room.location}room is #{room.status} and has #{room.guests.count} occupants of a possible #{room.max_size}."
+          p "The #{room.location} room is #{room.status} and has #{room.guests.count} occupants of a possible #{room.max_size}."
         end
         p ""
       when 5
@@ -112,17 +113,48 @@ class Karaoke
 
 
   def interface_customer(room)
-    while
-      choose song
-      add song to queue
-      request assistance
-      feedback
-      exit
+    p "WELCOME TO KARAOKE"
+    p "--------------------------"
+    user_choice = 0
+    while user_choice != 4
+      if room.play_queue.count != 0
+        p "#{@stage} is singing #{room.play_queue[0].title}"
+      else
+        p "Add a song to queue to get started!"
+        p ""
+      end
+      p "1 - Add Song to Queue"
+      p "2 - Skip Current Song"
+      p "3 - Request assistance"
+      p "4 - Check Queue"
+      p "5 - exit session "
+      p ""
+      choice_guest = gets.chomp.to_i
+      case choice_guest
+      when 1
+        if room.play_queue.size < 5
+          room.add_song_to_queue #creTE functn with genre search
+        else p "Queue Full!  Please wait for the current song to finish."
+        end
+      when 2
+        room.play_queue.delete[0]
+      when 3
+        p "Please stand by, someone will be with you shorty"
+        @assistance = true
+        p ""
+        @assistance = false
+      when 4
+        "Queue" + room.play_queue.each { |song| print ", " + song }
+      when 5
+        user_choice = 5
+      else
+        p "please enter a valid option"
+      end
     end
   end
 
 
-  def interface_lvl2(menu, room)
+  def interface_lvl2(menu)
     p ""
     p "MENU"
     p "----------"
@@ -131,16 +163,19 @@ class Karaoke
       p "Please enter admin password"
       gets.chomp
       if pass == "******"
+        room = choose_room()
         interface_business(room)
       else
         p ""
         p "details do not match"
       end
     elsif menu == 2
+      room = choose_room()
       interface_customer(room)
     else
-      test_interface(room)
+      test_interface("room")
     end
+    return 3
   end
 
 
