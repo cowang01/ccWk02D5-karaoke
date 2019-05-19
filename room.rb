@@ -14,6 +14,8 @@ class Room
 
 
   def add_guest(guest)
+    p "Please confirm you have charged #{guest.name} £#{@price}"
+    gets.chomp
     @guests << guest
   end
 
@@ -21,8 +23,15 @@ class Room
     @guests.count < @max_size && @status == "open"
   end
 
-  def add_song_to_room(song)
+  def add_song_to_room()
+    p "Please enter title, Artist, Length, Genre(e.g. '3.8')"
+    title = gets.chomp
+    artist = gets.chomp
+    length = gets.chomp
+    genre = gets.chomp
+    song = Song.new(title, artist, length, genre)
     @songs << song
+    p ""
   end
 
   def find_songs_artist(artist)
