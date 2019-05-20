@@ -118,8 +118,8 @@ class Karaoke
     user_choice = 0
     while user_choice != 5
       if room.play_queue.count != 0
-        que_song = room.play_queue.first
-        p "#{room.play_queue.keys[0]} is singing #{que_song}"
+        que_song = room.play_queue.values.first
+        p "#{room.play_queue.keys[0]} is singing #{que_song.title}"
       else
         p "Add a song to queue to get started!"
         p ""

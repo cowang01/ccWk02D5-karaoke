@@ -136,12 +136,11 @@ class Room
             chosen_song = @songs.find { |song| song.title == song_title}
             search = 2
           end
-
           p "Sorry, that song is not available.  Would you like to search again?"
           p "1 - Yes"
           p "2 - No"
-          search = gets.chomp.to_i
         end
+        search = gets.chomp.to_i
       end
       @play_queue[name] = chosen_song
     when 3
