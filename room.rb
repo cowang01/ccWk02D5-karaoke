@@ -10,7 +10,7 @@ class Room
     @status = "closed"
     @songs = []
     @guests = []
-    @play_queue = []
+    @play_queue = {}
   end
 
 
@@ -31,11 +31,15 @@ class Room
 
 
   def add_song_to_room()
-    p "Please enter title, Artist, Length(e.g. '3.8') and Genre"
-    title = "title: #{gets.chomp}"
-    artist = "artist: #{gets.chomp}"
-    length = "length (e.g. 2.8): #{gets.chomp}"
-    genre = "genre: #{gets.chomp}"
+    p "Please enter the song to be added to the room:- "
+    print "title:"
+    title = gets.chomp
+    print "artist:"
+    artist = gets.chomp
+    print "length (e.g. 2.8):"
+    length = gets.chomp
+    print "genre:"
+    genre = gets.chomp
     song = Song.new(title, artist, length, genre)
     @songs << song
     p ""
@@ -93,9 +97,11 @@ class Room
 
 
   def add_song_to_queue()
+    p "Please enter your name."
+    name = gets.chomp
     p "How would you like to add your song?"
     p "1 - Search by Genre"
-    p "2 - Search by Title"
+    p "2 - Search for a Title"
     p "3 - Add Random Song"
     p ""
     song_choice = gets.chomp.to_i
@@ -104,6 +110,20 @@ class Room
       genres = @songs.map { |song| song.genre }
       uniq_genre = genres.uniq { |genre| genre }
       uniq_genre.each { |uniq| p uniq }
+      p "please choose a genre"
+      genre_choice = gets.chomp
+      for song in @songs
+        if song.genre == genre_choice
+          p song.title
+        end
+      end
+      p "What song would you like?"
+      title_choice = gets.chomp.capitalize!
+      for song in @songs
+        if song.title == title_choice
+          @play_queue[name] = song
+        end
+      end
     when 2
       chosen_song = nil
       search = 1
@@ -123,9 +143,10 @@ class Room
           search = gets.chomp.to_i
         end
       end
-      @play_queue << chosen_song
+      @play_queue[name] = chosen_song
     when 3
-      @play_queue << random_song(@songs)
+      rand = random_song(@songs)
+      @play_queue[name] = rand
       p ""
     else p "Invalid Input"
       p ""

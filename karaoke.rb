@@ -16,7 +16,7 @@ class Karaoke
     p "Welcome"
     interface = "empty"
     until (interface == 1) || (interface == 2) || (interface == 3) do
-      p "please log in as the numeric: "
+      p "please log using the numeric: "
       p "1 - admin"
       p "2 - guest"
       p "3 - exit"
@@ -116,9 +116,10 @@ class Karaoke
     p "WELCOME TO KARAOKE"
     p "--------------------------"
     user_choice = 0
-    while user_choice != 4
+    while user_choice != 5
       if room.play_queue.count != 0
-        p "#{@stage} is singing #{room.play_queue[0].title}"
+        que_song = room.play_queue.first
+        p "#{room.play_queue.keys[0]} is singing #{que_song}"
       else
         p "Add a song to queue to get started!"
         p ""
@@ -137,14 +138,14 @@ class Karaoke
         else p "Queue Full!  Please wait for the current song to finish."
         end
       when 2
-        room.play_queue.delete[0]
+        room.play_queue.delete([0])
       when 3
         p "Please stand by, someone will be with you shorty"
         @assistance = true
         p ""
         @assistance = false
       when 4
-        "Queue" + room.play_queue.each { |song| print ", " + song }
+        room.play_queue.each { |song| print ", " + song }
       when 5
         user_choice = 5
       else
